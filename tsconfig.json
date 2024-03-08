@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "classic",
+		"outDir": "out",
+		"rootDir": "src"
+	},
+	"include": ["src/*.ts"]
+}
