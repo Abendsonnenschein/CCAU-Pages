@@ -1,33 +1,41 @@
-function selectAll() {
+import * as u from "./utils";
+import { Option } from "./option";
+
+function deleteAll() {
   const s: string = ".select-page-checkbox";
-  const s2: string = "#ccau-pages";
-  const boxes: NodeListOf<Element> = document.querySelectorAll(s);
-  const elems: Element[] = Array.from(boxes);
+  const s2: string = "#ccau_omnibox";
+  const boxes: Element[] = Array.from(document.querySelectorAll(s));
   const chk: boolean = (document.querySelector(s2) as HTMLInputElement).checked;
 
-  elems.forEach((e) => {
+  boxes.forEach((e) => {
     const box: HTMLInputElement = e as HTMLInputElement;
-    const label: string = box.ariaLabel;
+    const label: Option<string> = box.ariaLabel;
 
-    if (box.checked !== chk && !label.includes("University Information")) {
+    if (box.checked !== chk && !label?.includes("University Information")) {
       box.click();
     }
   });
 }
 
 export function addButton() {
-  const row: Element | null = document.querySelector(".header-row");
-  const slot: Element | undefined = row?.children[0];
-  const newHTML: string = `<input type="checkbox" id="ccau-pages"></input>`;
-  const oldHTML: string = slot?.innerHTML || "";
+  const row: Option<Element> = document.querySelector("thead");
+  const slot: Option<Element> = row?.children[0].children[0];
+  const omniBox: HTMLInputElement = document.createElement("input");
 
-  if (oldHTML.includes("ccau-pages")) {
-    console.log("[CCAU] Button already exists");
+  omniBox.type = "checkbox";
+  omniBox.id = "ccau_omnibox";
+  omniBox.onclick = deleteAll;
+
+  if (document.querySelector("#ccau_omnibox")) {
+    u.log("Omni-box already exists");
     return;
   }
 
-  slot?.insertAdjacentHTML("afterbegin", newHTML);
+  if (!row) {
+    u.log("Row not found");
+    return;
+  }
 
-  const btn: Element | null = document.querySelector("#ccau-pages");
-  btn?.addEventListener("click", selectAll, false);
+  u.log("Adding omni-box");
+  slot?.appendChild(omniBox);
 }

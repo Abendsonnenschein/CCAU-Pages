@@ -1,10 +1,12 @@
 import { addButton } from "./check";
-import { observeDOM } from "./sub";
+import * as u from "./utils";
 
-observeDOM(document.body, () => {
-  console.log("[CCAU] DOM changed, maybe I can add button now? 🥺👉👈");
+u.observeDOM(document.body, () => {
+  const msg0: string = "This friendly creature sees all, however ";
+  const msg1: string = "it probably wont know what to do with it.";
 
-  if (document.querySelector(".header-row") !== null) {
-    addButton();
-  }
+  u.log(msg0 + msg1);
+  addButton();
 });
+
+setTimeout(addButton, 2000);
