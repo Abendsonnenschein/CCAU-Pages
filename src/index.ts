@@ -6,7 +6,5 @@ u.observeDOM(document.body, () => {
   const msg1: string = "it probably wont know what to do with it.";
 
   u.log(msg0 + msg1);
-  addButton();
+  setTimeout(addButton, 500);
 });
-
-setTimeout(addButton, 2000);

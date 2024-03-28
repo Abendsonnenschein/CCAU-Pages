@@ -4,17 +4,21 @@ import { Option } from "./option";
 function deleteAll() {
   const s: string = ".select-page-checkbox";
   const s2: string = "#ccau_omnibox";
-  const boxes: Element[] = Array.from(document.querySelectorAll(s));
   const chk: boolean = (document.querySelector(s2) as HTMLInputElement).checked;
 
-  boxes.forEach((e) => {
-    const box: HTMLInputElement = e as HTMLInputElement;
-    const label: Option<string> = box.ariaLabel;
+  Array.from(document.querySelectorAll(s))
+    .map((e) => e as HTMLInputElement)
+    .forEach((box) => {
+      const label: Option<string> = box.ariaLabel;
 
-    if (box.checked !== chk && !label?.includes("University Information")) {
-      box.click();
-    }
-  });
+      if (box.checked !== chk && !label?.includes("University Information")) {
+        box.click();
+      }
+    });
+
+  if (chk) {
+    u.clickButton(".delete_pages");
+  }
 }
 
 export function addButton() {
